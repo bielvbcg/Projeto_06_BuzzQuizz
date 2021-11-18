@@ -27,7 +27,7 @@
   font-size: 23px;
   font-weight: 700;
 
-  margin-top: 28px;
+  margin-top: 20px;
   margin-bottom: 28px;
 }
 
@@ -45,7 +45,7 @@
   align-items: center;
 }
 
-.inputs input{
+.inputs input, .pergunta input{
   width: 564px;
   height: 46px;
   padding-left: 23px;
@@ -54,6 +54,29 @@
   border-radius: 5px;
 
   font-style: italic;
+}
+
+.pergunta{
+  width: 600px;
+  min-height: 100px;
+
+  padding: 20px;
+  margin-bottom: 20px;
+  gap: 9px;
+
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.editandoPergunta{
+  overflow: visible;
+  min-height: 850px;
 }
 
 .criar button{
@@ -99,4 +122,12 @@
   background-color: none;
   margin: none;
   padding: 20px;
+}
+
+button, .quiz:hover{
+  cursor: pointer;
+}
+
+.sumir{
+  display: none;
 }
