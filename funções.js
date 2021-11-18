@@ -4,35 +4,43 @@ const sectionCriarPerguntas = document.querySelector('.crieSuasPerguntas');
 const sectionCriandoNiveis = document.querySelector('.niveis');
 const sectionQuizzPronto = document.querySelector('.QuizzPronto');
 const sectionMensagemErro = document.querySelector('.mensagemErro');
+const textoErro = document.querySelector('.mensagemErro span');
+
 
 function ComecandoNovoQuizz() {
     sectionInfoQuizz.classList.remove('sumir');
     sectionTelaInicial.classList.add('sumir');
 }
 
+//info's de criando um quizz
+let tituloCriandoQuizz;
+let URLCriandoQuizz;
+let perguntasCriandoQuizz;
+let niveisCriandoQuizz;
+
 function verificarDadosCriandoQuizz() {
-    const titulo = document.querySelector('.infoCriandoQuizz .titulo');
-    const URL = document.querySelector('.infoCriandoQuizz .URL');
-    const perguntas = document.querySelector('.infoCriandoQuizz .quantidadePerguntas');
-    const niveis = document.querySelector('.infoCriandoQuizz .quantidadeNiveis');
+    tituloCriandoQuizz = document.querySelector('.infoCriandoQuizz .titulo');
+    URLCriandoQuizz = document.querySelector('.infoCriandoQuizz .URL');
+    perguntasCriandoQuizz = document.querySelector('.infoCriandoQuizz .quantidadePerguntas');
+    niveisCriandoQuizz = document.querySelector('.infoCriandoQuizz .quantidadeNiveis');
 
-    const textoErro = document.querySelector('.mensagemErro span');
-
-    if (titulo.value.length < 20 || titulo.value.length > 65) {
+    if (tituloCriandoQuizz.value.length < 20 || tituloCriandoQuizz.value.length > 65) {
         sectionMensagemErro.classList.remove('sumir');
         textoErro.innerHTML = "Título deve ter entre 20 e 65 caracteres!";
-    } else if (perguntas.value < 3) {
+
+    } else if (perguntasCriandoQuizz.value < 3) {
         sectionMensagemErro.classList.remove('sumir');
         textoErro.innerHTML = "Deve ter no mínimo 3 perguntas!";
-    } else if (niveis.value < 2) {
+
+    } else if (niveisCriandoQuizz.value < 2) {
         sectionMensagemErro.classList.remove('sumir');
         textoErro.innerHTML = "Deve ter no mínimo 2 níveis!";
     } else {
-        CriandoPerguntas(perguntas, niveis);
+        CriandoPerguntas();
     }
 }
 
-function CriandoPerguntas(perguntas, niveis) {
+function CriandoPerguntas() {
     sectionInfoQuizz.classList.add('sumir');
     sectionCriarPerguntas.classList.remove('sumir');
     let classe = "";
@@ -46,19 +54,19 @@ function CriandoPerguntas(perguntas, niveis) {
         sectionCriarPerguntas.innerHTML += `
         <div class="pergunta ${classe}" onclick="mostrarDadosPergunta(this)">
         <div class="subTituloSecao">Pergunta ${i + 1}</div>
-        <input type="text" placeholder="Texto da pergunta">
-        <input type="text" placeholder="Cor de fundo da pergunta">
+        <input class="textoPergunta" type="text" placeholder="Texto da pergunta">
+        <input class="corFundo" type="text" placeholder="Cor de fundo da pergunta">
   
         <div class="subTituloSecao">Resposta correta</div>
-        <input type="text" placeholder="Resposta correta">
+        <input class="respostaCorreta" type="text" placeholder="Resposta correta">
         <input type="text" placeholder="URL da imagem">
   
         <div class="subTituloSecao">Respostas incorretas</div>
-        <input type="text" placeholder="Resposta incorreta 1">
+        <input class="respstaIncorreta1" type="text" placeholder="Resposta incorreta 1">
         <input type="text" placeholder="URL da imagem 1">
-        <input type="text" placeholder="Resposta incorreta 2">
+        <input class="respostaIncorreta2" type="text" placeholder="Resposta incorreta 2">
         <input type="text" placeholder="URL da imagem 2">
-        <input type="text" placeholder="Resposta incorreta 3">
+        <input class="respostaIncorreta3" type="text" placeholder="Resposta incorreta 3">
         <input type="text" placeholder="URL da imagem 3">
       </div> `
     }
@@ -71,8 +79,50 @@ function mostrarDadosPergunta(perguntaSelecionada) {
     perguntaSelecionada.classList.add('editandoPergunta');
 }
 
+//info's de criando um quizz
+let textoPerguntaCriandoQuizz;
+let corFundoCriandoQuizz;
+let respostaCorretaCriandoQuizz;
+
+let respostaErrada1CriandoQuizz;
+let respostaErrada2CriandoQuizz;
+let respostaErrada3CriandoQuizz;
+
 function verificarPerguntas() {
-    //verificar Todos os campos de todas perguntas
+    textoPerguntaCriandoQuizz = document.querySelectorAll('.textoPergunta');
+    corFundoCriandoQuizz = document.querySelectorAll('.corFundo');
+    respostaCorretaCriandoQuizz = document.querySelectorAll('.respostaCorreta');
+
+    respostaErrada1CriandoQuizz = document.querySelectorAll('respstaIncorreta1');
+    respostaErrada2CriandoQuizz = document.querySelectorAll('respstaIncorreta2');
+    respostaErrada3CriandoQuizz = document.querySelectorAll('respstaIncorreta3');
+
+    for (let i = 0; i < textoPergunta.length; i++) {
+        if (textoPerguntaCriandoQuizz[i].value.length < 20) {
+            sectionMensagemErro.classList.remove('sumir');
+
+            textoErro.innerHTML = "A pergunta deve ter no mínimo 20 caracteres!";
+        } else if (corFundoCriandoQuizz[i].value.length < 7 || corFundo[i].value.length > 7) {
+            sectionMensagemErro.classList.remove('sumir');
+            textoErro.innerHTML = "A cor deve ser na forma  hexadecimal (começar em '#', seguida de 6 caracteres hexadecimais, ou seja, números ou letras de A a F)";
+
+        } else if (respostaCorretaCriandoQuizz[i].value === "") {
+            sectionMensagemErro.classList.remove('sumir');
+            textoErro.innerHTML = "informe a resposta correta!";
+
+        } else if (respostaErrada1CriandoQuizz[i].value === "" && respostaErrada2CriandoQuizz[i].value === "" && respostaErrada3CriandoQuizz[i].value === "") {
+            sectionMensagemErro.classList.remove('sumir');
+            textoErro.innerHTML = "informe ao menos 1 resposta errada!";
+        } else {
+            criandoNiveis();
+        }
+    }
+}
+
+//info's de criando um quizz
+function criandoNiveis() {
+    sectionCriarPerguntas.classList.add('sumir');
+    sectionCriandoNiveis.classList.remove('sumir');
 }
 
 function fecharMensagemErro() {
