@@ -65,7 +65,7 @@ h1 {
 }
 
 .todos-os-quizzes {
-  width: 85%;
+  width: 1100px;
 
   display: flex;
   flex-wrap: wrap;
@@ -107,4 +107,8 @@ h1 {
   text-align: center;
 
   padding-bottom: 5px;
+}
+
+.sumir{
+  display: none;
 }
