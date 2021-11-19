@@ -12,6 +12,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet">
+
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/estilo.css">
   <link rel="stylesheet" href="css/stylesSamuel.css">
@@ -24,7 +25,7 @@
     <h1>BuzzQuizz</h1>
   </header>
 
-  <section class="tela-inicial">
+  <section class="tela-inicial sumir">
     <div class="seus-quizzes">
       <span>Você não criou nenhum <br>quizz ainda :(</span>
       <button onclick="ComecandoNovoQuizz()">Criar Quizz</button>
@@ -40,17 +41,18 @@
     </div>
   </section>
 
-  <section class="tela-exibicao-quizz sumir">
+  <section class="tela-exibicao-quizz">
     <div class="banner-topo">
         <h1 class="banner-text">
-            O quão Potterhead é você?
+            <!-- O quão Potterhead é você? -->
         </h1>
     </div>
-    <div class="visualizacao-perguntas">
-        <div class="pergunta">
-            <h1 class="pergunta-text">
-                Em qual animal Olho-Tonto Moody transfigurou Malfoy?
-            </h1>
+    
+    <!-- <div class="visualizacao-perguntas">
+        <div class="perguntaj">
+            <h3 class="pergunta-text">
+                1- Em qual animal Olho-Tonto Moody transfigurou Malfoy?
+            </h3>
         </div>
         <div class="opcoes">
             <div class="text-resposta">
@@ -70,34 +72,9 @@
                 <p>Gato</p>
             </div>
         </div> 
-    </div>
-    <!-- Div Duplica -->
-    <div class="visualizacao-perguntas">
-        <div class="pergunta">
-            <h1 class="pergunta-text">
-                Em qual animal Olho-Tonto Moody transfigurou Malfoy?
-            </h1>
-        </div>
-        <div class="opcoes">
-            <div class="text-resposta">
-                <img class="img-pergunta" src="./imagens/image 3Gato.png" alt="">
-                <p>Gato</p>
-            </div>
-            <div class="text-resposta">
-                <img class="img-pergunta" src="./imagens/image 3Gato.png" alt="">
-                <p>Gato</p>
-            </div>
-            <div class="text-resposta">
-                <img class="img-pergunta" src="./imagens/image 3Gato.png" alt="">
-                <p>Gato</p>
-            </div>
-            <div class="text-resposta">
-                <img class="img-pergunta" src="./imagens/image 3Gato.png" alt="">
-                <p>Gato</p>
-            </div>
-        </div>
-    </div>
-    <div class="visualizacao-resultados">
+    </div> -->
+
+    <!-- <div class="visualizacao-resultados">
         <div class="resultado">
             <h1 class="resultado-text">
                 88% de acerto: Você é praticamente um aluno de Hogwarts!
@@ -113,7 +90,7 @@
     <footer class="botoes-rodape">
         <button class="reiniciar-quizz">Reiniciar Quizz</button>
         <button class="return-home">Voltar pra home</button>
-    </footer>
+    </footer> -->
 </section>
 
   <section class="infoCriandoQuizz criar sumir">
@@ -174,7 +151,10 @@
     </div>
   </section>
 
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="js/funções.js"></script>
+  <script src="js/scriptSamuel.js"></script>
 </body>
 
 </html>
