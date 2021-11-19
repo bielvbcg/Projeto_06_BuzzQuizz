@@ -1,3 +1,11 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  width: 100%;
+}
+
 .criar{
   width: 100%;
   height: 100%;
@@ -9,6 +17,8 @@
   align-items: center;
 
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1;
   overflow-y: scroll;
 }
@@ -45,7 +55,7 @@
   align-items: center;
 }
 
-.inputs input, .pergunta input{
+.inputs input, .pergunta input, .nivel input{
   width: 564px;
   height: 46px;
   padding-left: 23px;
@@ -56,7 +66,7 @@
   font-style: italic;
 }
 
-.pergunta{
+.crieSuasPerguntas .pergunta{
   width: 600px;
   min-height: 100px;
 
@@ -74,9 +84,32 @@
   overflow: hidden;
 }
 
-.editandoPergunta{
+.crieSuasPerguntas .editandoPergunta{
   overflow: visible;
   min-height: 850px;
+}
+
+.nivel{
+  width: 600px;
+  min-height: 100px;
+
+  padding: 20px;
+  margin-bottom: 20px;
+  gap: 9px;
+
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.editandoNivel{
+  overflow: visible;
+  min-height: 300px;
 }
 
 .criar button{
@@ -103,7 +136,6 @@
 
   background-position: center center;
   background-size: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url('/imagens/arara.jpg');
 
   position: relative;
 }
@@ -124,10 +156,29 @@
   padding: 20px;
 }
 
-button, .quiz:hover{
+button, .voltarHome, .quiz:hover{
   cursor: pointer;
 }
 
 .sumir{
   display: none;
+}
+
+@media(max-width: 1100px){
+  .inputs, .pergunta, .nivel {
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  .inputs input, .pergunta input, .nivel input{
+    max-width: 95%;
+  }
+
+  .criar button{
+    width: 95%;
+  }
+
+  .tituloSecao, .subTituloSecao{
+    font-size: 20px;
+  }
 }

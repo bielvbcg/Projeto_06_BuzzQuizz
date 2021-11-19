@@ -14,7 +14,7 @@
     rel="stylesheet">
 
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/estiloPaginaInicial.css">
   <link rel="stylesheet" href="css/stylesSamuel.css">
   <link rel="stylesheet" href="css/estiloCriarQuizz.css">
 </head>
@@ -30,15 +30,7 @@
       <span>Você não criou nenhum <br>quizz ainda :(</span>
       <button onclick="ComecandoNovoQuizz()">Criar Quizz</button>
     </div>
-    <div class="todos-os-quizzes">
-      <span class="subTituloSecao">Todos os Quizzes</span>
-      <div class="quiz"><span>Acerte os personagens corretos dos Simpsons e prove seu amor!</span></div>
-      <div class="quiz"><span>Acerte os personagens corretos dos Simpsons e prove seu amor!</span></div>
-      <div class="quiz"><span>Acerte os personagens corretos dos Simpsons e prove seu amor!</span></div>
-      <div class="quiz"><span>Acerte os personagens corretos dos Simpsons e prove seu amor!</span></div>
-      <div class="quiz"><span>Acerte os personagens corretos dos Simpsons e prove seu amor!</span></div>
-      <div class="quiz"><span>Acerte os personagens corretos dos Simpsons e prove seu amor!</span></div>
-    </div>
+    <div class="todos-os-quizzes"></div>
   </section>
 
   <section class="tela-exibicao-quizz">
@@ -107,41 +99,20 @@
   </section>
 
   <section class="crieSuasPerguntas criar sumir">
-    <div class="tituloSecao">Crie suas perguntas</div>
-
   </section>
 
-  <section class="niveis criar sumir">
-    <div class="tituloSecao">Agora, decida os níveis</div>
-
-    <div class="inputs">
-      <div class="subTituloSecao">Nível 1</div>
-      <input type="text" placeholder="Título do nível">
-      <input type="text" placeholder="% de acerto mínima">
-      <input type="text" placeholder="URL da imagem do nível">
-      <input type="text" placeholder="Descrição do nível">
-    </div>
-
-    <div class="inputs">
-      <div class="subTituloSecao">Nível 2</div>
-    </div>
-
-    <div class="inputs">
-      <div class="subTituloSecao">Nível 3</div>
-    </div>
-
-    <button>Finalizar Quizz</button>
+  <section class="niveisCriandoQuizz criar sumir">
   </section>
 
   <section class="QuizzPronto criar sumir">
     <div class="tituloSecao">Seu quizz está pronto!</div>
 
     <div class="imagem">
-      <span>O quanto voce gosta de araras?</span>
+      <span></span>
     </div>
 
-    <button>Finalizar Quizz</button>
-    <div class="voltarHome">Voltar a home</div>
+    <button onclick="AcessarQuizzCriado()">Acessar quizz</button> <!-- acessar quizz criado deve abrir o quizz -->
+    <div class="voltarHome" onclick="voltarHome()">Voltar a home</div>
   </section>
 
   <section class="mensagemErro sumir">
@@ -151,10 +122,11 @@
     </div>
   </section>
 
-
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="js/funções.js"></script>
-  <script src="js/scriptSamuel.js"></script>
+  <script src="scripts/paginaInicial.js"></script>
+  <script src="scripts/funções.js"></script>
+  <script src="scripts/scriptSamuel.js"></script>
+
 </body>
 
 </html>
