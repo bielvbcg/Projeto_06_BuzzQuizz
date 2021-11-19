@@ -129,7 +129,7 @@ h1 {
   font-weight: 900;
   text-align: center;
 
-  border: 1px solid #EC362D;
+  border: 2px solid #EC362D;
   border-radius: 10px;
   background-color: #FFFFFF;
 
@@ -137,6 +137,17 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.mensagemErro .displayErro button{
+  width: 75px;
+  height: 25px;
+
+  border: none;
+  border-radius: 5px;
+
+  background-color: #EC362D;
+  color: #FFFFFF; 
 }
 
 .sumir{
