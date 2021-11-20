@@ -28,7 +28,7 @@
   <section class="tela-inicial">
     <div class="seus-quizzes">
       <span>Você não criou nenhum <br>quizz ainda :(</span>
-      <button onclick="ComecandoNovoQuizz()">Criar Quizz</button>
+      <button onclick="mudarTela(sectionTelaInicial , sectionInfoQuizz)">Criar Quizz</button>
     </div>
     <div class="todos-os-quizzes"></div>
   </section>
@@ -103,7 +103,6 @@
         <button class="return-home">Voltar pra home</button>
     </footer> -->
   </section>
-  >>>>>>> 5faa557c1e13188ef429aa96663f4febfa795d21
 
   <section class="infoCriandoQuizz criar sumir">
     <div class="tituloSecao">Começe pelo começo</div>
@@ -132,7 +131,7 @@
     </div>
 
     <button onclick="AcessarQuizzCriado()">Acessar quizz</button> <!-- acessar quizz criado deve abrir o quizz -->
-    <div class="voltarHome" onclick="voltarHome()">Voltar a home</div>
+    <div class="voltarHome" onclick="mudarTela(sectionQuizzPronto , sectionTelaInicial)">Voltar a home</div>
   </section>
 
   <section class="mensagemErro sumir">
