@@ -3,8 +3,8 @@
 - Tela 2: Página de um quizz (perguntas)
     - [X]  No topo do quizz, deve ser exibido um banner com a imagem e o título do quizz. A imagem deve estar escurecida com uma camada preta de 60% de opacidade.
     - [ ]  As respostas de cada pergunta devem ser exibidas organizadas aleatoriamente
-    - [ ]  Ao clicar em uma resposta, as demais devem ganhar o efeito "esbranquiçado" do layout
-    - [ ]  Não deve ser possível alterar a resposta após a escolha
+    - [X]  Ao clicar em uma resposta, as demais devem ganhar o efeito "esbranquiçado" do layout
+    - [X]  Não deve ser possível alterar a resposta após a escolha
     - [ ]  Após escolher uma resposta, o texto das opções deve ganhar a cor vermelha ou verde, conforme layout, indicando quais eram as respostas erradas e a certa
     - [ ]  Após 2 segundos de respondida, deve-se scrollar a página para a próxima pergunta
 
