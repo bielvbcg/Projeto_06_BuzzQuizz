@@ -10,7 +10,9 @@ function popularPaginaInicial()
     {
       todosOsQuizzes.innerHTML += 
       `
-        <div class="quizz" style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${new URL(listaQuizzes.data[i].image)})">
+        <div class="quizz" 
+          style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${new URL(listaQuizzes.data[i].image)})"
+          onclick="carregaQuizz(${listaQuizzes.data[i].id})">
           <span>${listaQuizzes.data[i].title}</span>
         </div>
       `;

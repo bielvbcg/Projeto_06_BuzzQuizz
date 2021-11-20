@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -25,21 +25,21 @@
     <h1>BuzzQuizz</h1>
   </header>
 
-  <section class="tela-inicial sumir">
+  <section class="tela-inicial">
     <div class="seus-quizzes">
       <span>Você não criou nenhum <br>quizz ainda :(</span>
-      <button onclick="ComecandoNovoQuizz()">Criar Quizz</button>
+      <button onclick="mudarTela(sectionTelaInicial , sectionInfoQuizz)">Criar Quizz</button>
     </div>
     <div class="todos-os-quizzes"></div>
   </section>
 
-  <section class="tela-exibicao-quizz">
+  <section class="tela-exibicao-quizz sumir">
     <div class="banner-topo">
-        <h1 class="banner-text">
-            <!-- O quão Potterhead é você? -->
-        </h1>
+      <h1 class="banner-text">
+        <!-- O quão Potterhead é você? -->
+      </h1>
     </div>
-    
+
     <!-- <div class="visualizacao-perguntas">
         <div class="perguntaj">
             <h3 class="pergunta-text">
@@ -71,13 +71,13 @@
             <h1 class="resultado-text">
                 88% de acerto: Você é praticamente um aluno de Hogwarts!
             </h1>
+>>>>>>> 5faa557c1e13188ef429aa96663f4febfa795d21
         </div>
-        <div class="resultado-imagem">
-            <img class="img-resposta" src="./imagens/image 10result.png" alt="">
-            <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de 
-                comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.
-            </p>
+        <div class="text-resposta">
+          <img class="img-pergunta" src="./imagens/image 3Gato.png" alt="">
+          <p>Gato</p>
         </div>
+<<<<<<< HEAD
     </div>-->
     
     <!-- <footer class="botoes-rodape"> -->
@@ -113,7 +113,7 @@
     </div>
 
     <button onclick="AcessarQuizzCriado()">Acessar quizz</button> <!-- acessar quizz criado deve abrir o quizz -->
-    <div class="voltarHome" onclick="voltarHome()">Voltar a home</div>
+    <div class="voltarHome" onclick="mudarTela(sectionQuizzPronto , sectionTelaInicial); popularPaginaInicial();">Voltar a home</div>
   </section>
 
   <section class="mensagemErro sumir">

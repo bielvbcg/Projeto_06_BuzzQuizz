@@ -2,8 +2,8 @@
 //https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/ID_DO_QUIZZ
 //geral: https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes
 
-const idQuizz = 2;
 let quizzSelecionado; 
+let idQuizz = 2;
 
 function answer(response){
     quizzSelecionado = response.data
@@ -12,6 +12,7 @@ function answer(response){
     alteraPergunta();
     // alteraResultado();
     alteraRodape();
+    // mudarTela(sectionTelaInicial , sectionTelaExibicaoQuizz)
 }
 
 function alterarBanner(){
@@ -125,15 +126,18 @@ function alteraRodape(){
 }
 
 function carregaQuizz(){
+// function carregaQuizz(idQuizz){
+    // const url = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizz}`)
+
     const url = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizz}`);
     
     url.then(answer);
     url.catch(error => { 
         return error
     });
+
 }
 carregaQuizz()
-
 
 function alternativaSelecionada(escolha, resposta){
     console.log({escolha, resposta});
