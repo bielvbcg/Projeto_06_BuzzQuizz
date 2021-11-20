@@ -12,27 +12,27 @@ function ComecandoNovoQuizz() {
     sectionTelaInicial.classList.add('sumir');
 }
 
-//info's de criando um quizz
-let tituloCriandoQuizz;
-let URLCriandoQuizz;
-let perguntasCriandoQuizz;
-let niveisCriandoQuizz;
-
+let numeroPerguntas;
+let numeroNiveis;
 function verificarDadosCriandoQuizz() {
-    tituloCriandoQuizz = document.querySelector('.infoCriandoQuizz .titulo');
-    URLCriandoQuizz = document.querySelector('.infoCriandoQuizz .URL');
-    perguntasCriandoQuizz = document.querySelector('.infoCriandoQuizz .quantidadePerguntas');
-    niveisCriandoQuizz = document.querySelector('.infoCriandoQuizz .quantidadeNiveis');
+    criandoQuizz.title = document.querySelector('.infoCriandoQuizz .titulo').value;
+    criandoQuizz.image = document.querySelector('.infoCriandoQuizz .URL').value;
+    numeroPerguntas = document.querySelector('.infoCriandoQuizz .quantidadePerguntas').value;
+    numeroNiveis = document.querySelector('.infoCriandoQuizz .quantidadeNiveis').value;
 
-    if (tituloCriandoQuizz.value.length < 20 || tituloCriandoQuizz.value.length > 65) {
+    if (criandoQuizz.title.length < 20 || criandoQuizz.title.length > 65) {
         sectionMensagemErro.classList.remove('sumir');
         textoErro.innerHTML = "Título deve ter entre 20 e 65 caracteres!";
 
-    } else if (perguntasCriandoQuizz.value < 3) {
+    } else if (!criandoQuizz.image.includes('https')) {
+        sectionMensagemErro.classList.remove('sumir');
+        textoErro.innerHTML = "Coloque uma URL válida!";
+
+    } else if (numeroPerguntas < 1) {
         sectionMensagemErro.classList.remove('sumir');
         textoErro.innerHTML = "Deve ter no mínimo 3 perguntas!";
 
-    } else if (niveisCriandoQuizz.value < 2) {
+    } else if (numeroNiveis < 1) {
         sectionMensagemErro.classList.remove('sumir');
         textoErro.innerHTML = "Deve ter no mínimo 2 níveis!";
     } else {
@@ -45,7 +45,9 @@ function CriandoPerguntas() {
     sectionCriarPerguntas.classList.remove('sumir');
     let classe = "";
 
-    for (let i = 0; i < perguntas.value; i++) {
+    sectionCriarPerguntas.innerHTML = `<div class="tituloSecao">Crie suas perguntas</div>`;
+
+    for (let i = 0; i < numeroPerguntas; i++) {
         if (i === 0) {
             classe = "editandoPergunta";
         } else {
@@ -62,8 +64,8 @@ function CriandoPerguntas() {
         <input type="text" placeholder="URL da imagem">
   
         <div class="subTituloSecao">Respostas incorretas</div>
-        <input class="respstaIncorreta1" type="text" placeholder="Resposta incorreta 1">
-        <input type="text" placeholder="URL da imagem 1">
+        <input class="respostaIncorreta1" type="text" placeholder="Resposta incorreta 1">
+        <input class="URLrespostaIncorreta1" type="text" placeholder="URL da imagem 1">
         <input class="respostaIncorreta2" type="text" placeholder="Resposta incorreta 2">
         <input type="text" placeholder="URL da imagem 2">
         <input class="respostaIncorreta3" type="text" placeholder="Resposta incorreta 3">
@@ -97,7 +99,15 @@ function verificarPerguntas() {
     respostaErrada2CriandoQuizz = document.querySelectorAll('respstaIncorreta2');
     respostaErrada3CriandoQuizz = document.querySelectorAll('respstaIncorreta3');
 
-    for (let i = 0; i < textoPergunta.length; i++) {
+    const respostaErrada1CriandoQuizz = document.querySelectorAll('.crieSuasPerguntas .respostaIncorreta1');
+    const URLrespostaIncorreta1 = document.querySelectorAll('.crieSuasPerguntas .URLrespostaIncorreta1');
+    const respostaErrada2CriandoQuizz = document.querySelectorAll('.crieSuasPerguntas .respostaIncorreta2');
+    const URLrespostaIncorreta2 = document.querySelectorAll('.crieSuasPerguntas .URLrespostaIncorreta2');
+    const respostaErrada3CriandoQuizz = document.querySelectorAll('.crieSuasPerguntas .respostaIncorreta3');
+    const URLrespostaIncorreta3 = document.querySelectorAll('.crieSuasPerguntas .URLrespostaIncorreta3');
+    
+
+    for (let i = 0; i < textoPerguntaCriandoQuizz.length; i++) {
         if (textoPerguntaCriandoQuizz[i].value.length < 20) {
             sectionMensagemErro.classList.remove('sumir');
 
@@ -114,6 +124,23 @@ function verificarPerguntas() {
             sectionMensagemErro.classList.remove('sumir');
             textoErro.innerHTML = "informe ao menos 1 resposta errada!";
         } else {
+
+            criandoQuizz.questions = [];
+            for (let i = 0; i < numeroPerguntas; i++) {
+                criandoQuizz.questions.push({ title: textoPerguntaCriandoQuizz[i].value, color: corFundoCriandoQuizz[i].value, answers: [] });
+
+                criandoQuizz.questions[i].answers.push({ text: respostaCorretaCriandoQuizz[i].value, image: URLrespostaCorreta[i].value, isCorrectAnswer: true });
+
+                if (respostaErrada1CriandoQuizz.value !== "") {
+                    criandoQuizz.questions[i].answers.push({ text: respostaErrada1CriandoQuizz[i].value, image: URLrespostaIncorreta1[i].value, isCorrectAnswer: false });
+                }
+                if (respostaErrada2CriandoQuizz.value !== "") {
+                    criandoQuizz.questions[i].answers.push({ text: respostaErrada2CriandoQuizz[i].value, image: URLrespostaIncorreta2[i].value, isCorrectAnswer: false });
+                }
+                if (respostaErrada3CriandoQuizz.value !== "") {
+                    criandoQuizz.questions[i].answers.push({ text: respostaErrada3CriandoQuizz[i].value, image: URLrespostaIncorreta3[i].value, isCorrectAnswer: false });
+                }
+            }
             criandoNiveis();
         }
     }
@@ -123,6 +150,112 @@ function verificarPerguntas() {
 function criandoNiveis() {
     sectionCriarPerguntas.classList.add('sumir');
     sectionCriandoNiveis.classList.remove('sumir');
+    let classe = "";
+
+    sectionCriandoNiveis.innerHTML = `<div class="tituloSecao">Agora, decida os níveis</div>`;
+
+    for (let i = 0; i < numeroNiveis; i++) {
+        if (i === 0) {
+            classe = "editandoNivel";
+        } else {
+            classe = "";
+        }
+        sectionCriandoNiveis.innerHTML += `
+        <div class="nivel ${classe}" onclick="mostrarDadosNivel(this)">
+        <div class="subTituloSecao">Nível ${i + 1}</div>
+        <input class="tituloNilvelCriandoQuizz" type="text" placeholder="Título do nível">
+        <input class="acertosCriandoQuizz" type="text" placeholder="% de acerto mínima">
+        <input class="URLnivel" type="text" placeholder="URL da imagem do nível">
+        <input class="legendaNivel" type="text" placeholder="Descrição do nível">
+        </div>`;
+    }
+    sectionCriandoNiveis.innerHTML += `<button onclick="verificarNiveis()">Finalizar Quizz</button>`;
+}
+
+function mostrarDadosNivel(nivelSelecionado) {
+    const nivelAberto = document.querySelector('.niveisCriandoQuizz .editandoNivel');
+    nivelAberto.classList.remove('editandoNivel');
+    nivelSelecionado.classList.add('editandoNivel');
+}
+
+//info's de criando um quizz
+let tituloNilvelCriandoQuizz;
+let acertosCriandoQuizz;
+let URLnivelCriandoQuizz;
+let legendaNivelCriandoQuizz;
+
+function verificarNiveis() {
+    tituloNilvelCriandoQuizz = document.querySelectorAll('.niveisCriandoQuizz .tituloNilvelCriandoQuizz');
+    acertosCriandoQuizz = document.querySelectorAll('.niveisCriandoQuizz .acertosCriandoQuizz');
+    URLnivelCriandoQuizz = document.querySelectorAll('.niveisCriandoQuizz .URLnivel');
+    legendaNivelCriandoQuizz = document.querySelectorAll('.niveisCriandoQuizz .legendaNivel');
+
+    let contemO = false;
+
+    for (let i = 0; i < numeroNiveis; i++) {
+
+        if (tituloNilvelCriandoQuizz[i].value.length < 10) {
+            sectionMensagemErro.classList.remove('sumir');
+            textoErro.innerHTML = "O título do nível deve ter ao menos 10 caracteres!";
+            return;
+        } else if (acertosCriandoQuizz[i].value < 0 || acertosCriandoQuizz[i].value > 100 || acertosCriandoQuizz[i].value === "") {
+            sectionMensagemErro.classList.remove('sumir');
+            textoErro.innerHTML = "A porcentagem deve ser apenas um valor inteiro entre  e 100!";
+            return;
+        } else if (!URLnivelCriandoQuizz[i].value.includes('https')) {
+            sectionMensagemErro.classList.remove('sumir');
+            textoErro.innerHTML = "Digite uma URL válida!";
+            return;
+        } else if (legendaNivelCriandoQuizz[i].value.length < 30) {
+            sectionMensagemErro.classList.remove('sumir');
+            textoErro.innerHTML = "A descrição deve ter ao menos 30 caracteres!";
+            return;
+        } else if (acertosCriandoQuizz[i].value == 0) {
+            contemO = true;
+        }
+    }
+
+    if (!contemO) {
+        sectionMensagemErro.classList.remove('sumir');
+        textoErro.innerHTML = "Você deve ter um nível com 0% de acertos!";
+    } else {
+
+        for (let i = 0; i < numeroNiveis; i++) {
+            criandoQuizz.levels.push({ title: tituloNilvelCriandoQuizz[i].value, image: URLnivelCriandoQuizz[i].value, text: legendaNivelCriandoQuizz[i].value, minValue: acertosCriandoQuizz[i].value });
+        }
+        FinalizarQuizzCriado();
+    }
+}
+
+function FinalizarQuizzCriado() {
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { criandoQuizz });
+    console.log(criandoQuizz);
+    promessa.then(telaFinalizaçãoQuizz);
+
+    promessa.catch(() => {
+        sectionMensagemErro.classList.remove('sumir');
+        textoErro.innerHTML = "Algo deu errado!";
+        sectionCriandoNiveis.classList.add('sumir');
+        sectionTelaInicial.classList.remove('sumir');
+    });
+}
+
+function telaFinalizaçãoQuizz() {
+    sectionCriandoNiveis.classList.add('sumir');
+    sectionQuizzPronto.classList.remove('sumir');
+
+    const imagem = document.querySelector('.QuizzPronto .imagem');
+    const tituloQuizz = document.querySelector('.QuizzPronto .imagem span');
+
+    imagem.style = `background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
+     url(${criandoQuizz.image})`
+
+    tituloQuizz.innerHTML = `${criandoQuizz.title}`
+}
+
+function voltarHome() {
+    sectionQuizzPronto.classList.add('sumir');
+    sectionTelaInicial.classList.remove('sumir');
 }
 
 function fecharMensagemErro() {
