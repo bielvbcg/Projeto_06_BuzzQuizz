@@ -1,11 +1,12 @@
 const sectionTelaInicial = document.querySelector('.tela-inicial');
 const sectionInfoQuizz = document.querySelector('.infoCriandoQuizz');
 const sectionCriarPerguntas = document.querySelector('.crieSuasPerguntas');
-const sectionCriandoNiveis = document.querySelector('.niveis');
+const sectionCriandoNiveis = document.querySelector('.niveisCriandoQuizz');
 const sectionQuizzPronto = document.querySelector('.QuizzPronto');
 const sectionMensagemErro = document.querySelector('.mensagemErro');
 const textoErro = document.querySelector('.mensagemErro span');
 
+let criandoQuizz = { title: "", image: "", questions: [], levels: [] };
 
 function ComecandoNovoQuizz() {
     sectionInfoQuizz.classList.remove('sumir');
@@ -61,15 +62,15 @@ function CriandoPerguntas() {
   
         <div class="subTituloSecao">Resposta correta</div>
         <input class="respostaCorreta" type="text" placeholder="Resposta correta">
-        <input type="text" placeholder="URL da imagem">
+        <input class="URLrespostaCorreta" type="text" placeholder="URL da imagem">
   
         <div class="subTituloSecao">Respostas incorretas</div>
         <input class="respostaIncorreta1" type="text" placeholder="Resposta incorreta 1">
         <input class="URLrespostaIncorreta1" type="text" placeholder="URL da imagem 1">
         <input class="respostaIncorreta2" type="text" placeholder="Resposta incorreta 2">
-        <input type="text" placeholder="URL da imagem 2">
+        <input class="URLrespostaIncorreta2" type="text" placeholder="URL da imagem 2">
         <input class="respostaIncorreta3" type="text" placeholder="Resposta incorreta 3">
-        <input type="text" placeholder="URL da imagem 3">
+        <input class="URLrespostaIncorreta3" type="text" placeholder="URL da imagem 3">
       </div> `
     }
     sectionCriarPerguntas.innerHTML += `<button onclick="verificarPerguntas()">Prosseguir para criar níveis</button>`
@@ -81,23 +82,11 @@ function mostrarDadosPergunta(perguntaSelecionada) {
     perguntaSelecionada.classList.add('editandoPergunta');
 }
 
-//info's de criando um quizz
-let textoPerguntaCriandoQuizz;
-let corFundoCriandoQuizz;
-let respostaCorretaCriandoQuizz;
-
-let respostaErrada1CriandoQuizz;
-let respostaErrada2CriandoQuizz;
-let respostaErrada3CriandoQuizz;
-
 function verificarPerguntas() {
-    textoPerguntaCriandoQuizz = document.querySelectorAll('.textoPergunta');
-    corFundoCriandoQuizz = document.querySelectorAll('.corFundo');
-    respostaCorretaCriandoQuizz = document.querySelectorAll('.respostaCorreta');
-
-    respostaErrada1CriandoQuizz = document.querySelectorAll('respstaIncorreta1');
-    respostaErrada2CriandoQuizz = document.querySelectorAll('respstaIncorreta2');
-    respostaErrada3CriandoQuizz = document.querySelectorAll('respstaIncorreta3');
+    const textoPerguntaCriandoQuizz = document.querySelectorAll('.crieSuasPerguntas .textoPergunta');
+    const corFundoCriandoQuizz = document.querySelectorAll('.crieSuasPerguntas .corFundo');
+    const respostaCorretaCriandoQuizz = document.querySelectorAll('.crieSuasPerguntas .respostaCorreta');
+    const URLrespostaCorreta = document.querySelectorAll('.crieSuasPerguntas .URLrespostaCorreta');
 
     const respostaErrada1CriandoQuizz = document.querySelectorAll('.crieSuasPerguntas .respostaIncorreta1');
     const URLrespostaIncorreta1 = document.querySelectorAll('.crieSuasPerguntas .URLrespostaIncorreta1');
@@ -105,16 +94,19 @@ function verificarPerguntas() {
     const URLrespostaIncorreta2 = document.querySelectorAll('.crieSuasPerguntas .URLrespostaIncorreta2');
     const respostaErrada3CriandoQuizz = document.querySelectorAll('.crieSuasPerguntas .respostaIncorreta3');
     const URLrespostaIncorreta3 = document.querySelectorAll('.crieSuasPerguntas .URLrespostaIncorreta3');
-    
 
     for (let i = 0; i < textoPerguntaCriandoQuizz.length; i++) {
         if (textoPerguntaCriandoQuizz[i].value.length < 20) {
             sectionMensagemErro.classList.remove('sumir');
-
             textoErro.innerHTML = "A pergunta deve ter no mínimo 20 caracteres!";
-        } else if (corFundoCriandoQuizz[i].value.length < 7 || corFundo[i].value.length > 7) {
+
+        } else if (corFundoCriandoQuizz[i].value.length < 7 || corFundoCriandoQuizz[i].value.length > 7 || !corFundoCriandoQuizz[i].value.includes('#')) {
             sectionMensagemErro.classList.remove('sumir');
             textoErro.innerHTML = "A cor deve ser na forma  hexadecimal (começar em '#', seguida de 6 caracteres hexadecimais, ou seja, números ou letras de A a F)";
+
+        } else if ((!URLrespostaIncorreta1[i].value.includes('https') && !URLrespostaIncorreta2[i].value.includes('https') && !URLrespostaIncorreta3[i].value.includes('https')) || !URLrespostaCorreta[i].value.includes('https')) {
+            sectionMensagemErro.classList.remove('sumir');
+            textoErro.innerHTML = "informe uma URL válida, ou alguma URL esta inserida incorretamente!";
 
         } else if (respostaCorretaCriandoQuizz[i].value === "") {
             sectionMensagemErro.classList.remove('sumir');
@@ -146,7 +138,6 @@ function verificarPerguntas() {
     }
 }
 
-//info's de criando um quizz
 function criandoNiveis() {
     sectionCriarPerguntas.classList.add('sumir');
     sectionCriandoNiveis.classList.remove('sumir');
@@ -228,8 +219,8 @@ function verificarNiveis() {
 }
 
 function FinalizarQuizzCriado() {
-    console.log(criandoQuizz);
     const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { criandoQuizz });
+    console.log(criandoQuizz);
     promessa.then(telaFinalizaçãoQuizz);
 
     promessa.catch(() => {
