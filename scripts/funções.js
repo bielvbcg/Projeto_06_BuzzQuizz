@@ -219,8 +219,8 @@ function verificarNiveis() {
 }
 
 function FinalizarQuizzCriado() {
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { criandoQuizz });
     console.log(criandoQuizz);
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { criandoQuizz });
     promessa.then(telaFinalizaçãoQuizz);
 
     promessa.catch(() => {
