@@ -260,3 +260,5 @@ function chamarErro(erro)
 function fecharMensagemErro() {
     sectionMensagemErro.classList.add('sumir');
 }
+
+
