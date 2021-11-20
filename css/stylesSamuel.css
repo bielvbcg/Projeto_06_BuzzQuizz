@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 body{
     font-family: Roboto;
 }
 
+=======
+>>>>>>> 5faa557c1e13188ef429aa96663f4febfa795d21
 .tela-exibicao-quizz{
     height: 100vh;
 }
@@ -9,7 +12,8 @@ body{
 .banner-topo{
     width: 100%;
     height: 227px;
-    background-image: url(./assets/img-banner.jpg);
+    background-image: url(/imagens/img-banner.jpg);
+    background-size: cover;
     
     margin-top: 70px;
 
@@ -43,7 +47,7 @@ body{
     background-color:#FFFFFF;
 }
 
-.pergunta{
+.visualizacao-perguntas .perguntaj{
     width: 688.16px;
     height: 137.99px;
 
@@ -53,7 +57,7 @@ body{
     justify-content: center;
     align-items: center;
 
-    background-color: #434CA0
+    background-color: #434CA0;
 }
 
 .pergunta-text{

@@ -1,0 +1,25 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- Tela 2: Página de um quizz (perguntas)
+    - [X]  No topo do quizz, deve ser exibido um banner com a imagem e o título do quizz. A imagem deve estar escurecida com uma camada preta de 60% de opacidade.
+    - [ ]  As respostas de cada pergunta devem ser exibidas organizadas aleatoriamente
+    - [ ]  Ao clicar em uma resposta, as demais devem ganhar o efeito "esbranquiçado" do layout
+    - [ ]  Não deve ser possível alterar a resposta após a escolha
+    - [ ]  Após escolher uma resposta, o texto das opções deve ganhar a cor vermelha ou verde, conforme layout, indicando quais eram as respostas erradas e a certa
+    - [ ]  Após 2 segundos de respondida, deve-se scrollar a página para a próxima pergunta
+
+- Tela 2: Página de um quizz (fim do quizz)
+    - [ ]  Após responder todas as perguntas, deve aparecer ao final da tela a caixa de resultado do quizz. Assim como na passagem das perguntas, deve-se aguardar 2 
+    - segundos após a última resposta e então scrollar a tela para exibir essa caixa de resultado
+    - [ ]  A pontuação do quiz (porcentagem de acertos sobre total de perguntas) deve ser calculada no front, sem nenhuma comunicação com o servidor, bem como a clas-
+    - sificação de em qual nível o usuário ficou baseado nessa pontuação
+    - [ ]  Deverão ser exibidos o título, a imagem e a descrição do nível que o usuário ficou
+    - [ ]  O score deve ser arredondado de forma a não ter casas decimais
+        
+    **Dica**: pesquise pelas funções `Math.ceil`, `Math.floor`, `Math.round` (e utilize a que você preferir)
+        
+    - [ ]  Ao clicar no botão "Reiniciar Quizz", a tela deverá ser scrollada novamente para o topo, as respostas zeradas pro estado inicial e a caixa de resultado 
+    - escondida novamente
+    - [ ]  Ao clicar no botão "Voltar pra home", essa tela deve sumir e dar lugar à **Tela 1: Lista de Quizzes**
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
