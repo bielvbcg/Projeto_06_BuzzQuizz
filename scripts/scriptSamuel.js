@@ -10,6 +10,8 @@ function answer(response){
     alterarBanner();
     alteraPergunta();
     alteraResultado();
+
+    mudarTela(sectionTelaInicial , sectionTelaExibicaoQuizz)
 }
 
 function alterarBanner(){

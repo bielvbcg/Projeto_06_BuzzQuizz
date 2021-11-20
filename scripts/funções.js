@@ -1,4 +1,5 @@
 const sectionTelaInicial = document.querySelector('.tela-inicial');
+const sectionTelaExibicaoQuizz = document.querySelector(".tela-exibicao-quizz")
 const sectionInfoQuizz = document.querySelector('.infoCriandoQuizz');
 const sectionCriarPerguntas = document.querySelector('.crieSuasPerguntas');
 const sectionCriandoNiveis = document.querySelector('.niveisCriandoQuizz');
@@ -49,7 +50,7 @@ function CriandoPerguntas() {
     mudarTela(sectionInfoQuizz , sectionCriarPerguntas)
 
     let classe = "";
-
+    
     sectionCriarPerguntas.innerHTML = `<div class="tituloSecao">Crie suas perguntas</div>`;
 
     for (let i = 0; i < numeroPerguntas; i++) {
@@ -63,11 +64,11 @@ function CriandoPerguntas() {
           <div class="subTituloSecao">Pergunta ${i + 1}</div>
           <input class="textoPergunta" type="text" placeholder="Texto da pergunta">
           <input class="corFundo" type="text" placeholder="Cor de fundo da pergunta">
-        
+          
           <div class="subTituloSecao">Resposta correta</div>
           <input class="respostaCorreta" type="text" placeholder="Resposta correta">
           <input class="URLrespostaCorreta" type="text" placeholder="URL da imagem">
-        
+          
           <div class="subTituloSecao">Respostas incorretas</div>
           <input class="respostaIncorreta1" type="text" placeholder="Resposta incorreta 1">
           <input class="URLrespostaIncorreta1" type="text" placeholder="URL da imagem 1">
@@ -99,8 +100,9 @@ function verificarPerguntas() {
     const respostaErrada3CriandoQuizz = document.querySelectorAll('.respostaIncorreta3');
     const URLrespostaIncorreta3 = document.querySelectorAll('.URLrespostaIncorreta3');
     
+    let numeroRespostas;
     questions = [];
-
+    
     for (let i = 0; i < numeroPerguntas; i++) {
         
         if (textoPerguntaCriandoQuizz[i].value.length < 20) {
@@ -127,11 +129,18 @@ function verificarPerguntas() {
 
             questions.push({ title: textoPerguntaCriandoQuizz[i].value, color: corFundoCriandoQuizz[i].value, answers: [] });
             questions[i].answers.push({ text: respostaCorretaCriandoQuizz[i].value, image: URLrespostaCorreta[i].value, isCorrectAnswer: true })
-            questions[i].answers.push({ text: respostaErrada1CriandoQuizz[i].value, image: URLrespostaIncorreta1[i].value, isCorrectAnswer: false });
-            questions[i].answers.push({ text: respostaErrada2CriandoQuizz[i].value, image: URLrespostaIncorreta2[i].value, isCorrectAnswer: false });
-            questions[i].answers.push({ text: respostaErrada3CriandoQuizz[i].value, image: URLrespostaIncorreta3[i].value, isCorrectAnswer: false });
+
+            if (respostaErrada1CriandoQuizz != "") {
+                questions[i].answers.push({ text: respostaErrada1CriandoQuizz[i].value, image: URLrespostaIncorreta1[i].value, isCorrectAnswer: false });
+            }
+            if (respostaErrada2CriandoQuizz != "") {
+                questions[i].answers.push({ text: respostaErrada2CriandoQuizz[i].value, image: URLrespostaIncorreta2[i].value, isCorrectAnswer: false });    
+            }
+            if (respostaErrada3CriandoQuizz != "") {
+                questions[i].answers.push({ text: respostaErrada3CriandoQuizz[i].value, image: URLrespostaIncorreta3[i].value, isCorrectAnswer: false });
+            }
         }
-    }
+    }   
 
     criandoNiveis();
 }
@@ -220,9 +229,7 @@ function FinalizarQuizzCriado() {
     promessa.catch(() => {
         chamarErro("Algo deu errado!")
 
-        //coloquei esse comentario aqui pra não sair da tela e resetar a pagina quando der ruim no teste
-        //tirar comentario quando o codigo for pro ar
-        //mudarTela(sectionCriandoNiveis , sectionTelaInicial)
+        mudarTela(sectionCriandoNiveis , sectionTelaInicial)
     });
 }
 
