@@ -1,4 +1,6 @@
 const sectionTelaInicial = document.querySelector('.tela-inicial');
+const semQuizzes = document.querySelector(".sem-quizzes")
+const quizzesUsuario = document.querySelector(".quizzes-usuario")
 const sectionTelaExibicaoQuizz = document.querySelector(".tela-exibicao-quizz")
 const sectionInfoQuizz = document.querySelector('.infoCriandoQuizz');
 const sectionCriarPerguntas = document.querySelector('.crieSuasPerguntas');
@@ -250,8 +252,8 @@ function telaFinalizaçãoQuizz(promessa) {
 
     tituloQuizz.innerHTML = `${title}`
 
-    quizzesUsuario.ids.push(promessa.data.id)
-    quizzesUsuario.keys.push(promessa.data.key)
+    quizzesUsuarioObjeto.ids.push(promessa.data.id)
+    quizzesUsuarioObjeto.keys.push(promessa.data.key)
     
     title = "";
     image = "";
