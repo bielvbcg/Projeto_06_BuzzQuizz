@@ -22,6 +22,8 @@ let levels = [];
 let numeroPerguntas;
 let numeroNiveis;
 
+const quizzesUsuario = { ids: [] , keys: [] }
+
 function verificarDadosCriandoQuizz() {
     title = document.querySelector('.titulo').value;
     image = document.querySelector('.URL').value;
@@ -79,12 +81,6 @@ function CriandoPerguntas() {
         </div> `
     }
     sectionCriarPerguntas.innerHTML += `<button onclick="verificarPerguntas()">Prosseguir para criar níveis</button>`
-}
-
-function mostrarDadosPergunta(perguntaSelecionada) {
-    const perguntaAberta = document.querySelector('.editandoPergunta');
-    perguntaAberta.classList.remove('editandoPergunta');
-    perguntaSelecionada.classList.add('editandoPergunta');
 }
 
 function verificarPerguntas() {
@@ -145,6 +141,13 @@ function verificarPerguntas() {
     criandoNiveis();
 }
 
+function mostrarDadosPergunta(perguntaSelecionada) {
+    const perguntaAberta = document.querySelector('.editandoPergunta');
+    perguntaAberta.classList.remove('editandoPergunta');
+    perguntaSelecionada.classList.add('editandoPergunta');
+    perguntaSelecionada.querySelector("div:first-child").scrollIntoView();
+}
+
 function criandoNiveis() {
     
     mudarTela(sectionCriarPerguntas , sectionCriandoNiveis)
@@ -161,20 +164,14 @@ function criandoNiveis() {
         }
         sectionCriandoNiveis.innerHTML += `
         <div class="nivel ${classe}" onclick="mostrarDadosNivel(this)">
-        <div class="subTituloSecao">Nível ${i + 1}</div>
-        <input class="tituloNilvelCriandoQuizz" type="text" placeholder="Título do nível">
-        <input class="acertosCriandoQuizz" type="text" placeholder="% de acerto mínima">
-        <input class="URLnivel" type="text" placeholder="URL da imagem do nível">
-        <input class="legendaNivel" type="text" placeholder="Descrição do nível">
+            <div class="subTituloSecao">Nível ${i + 1}</div>
+            <input class="tituloNilvelCriandoQuizz" type="text" placeholder="Título do nível">
+            <input class="acertosCriandoQuizz" type="text" placeholder="% de acerto mínima">
+            <input class="URLnivel" type="text" placeholder="URL da imagem do nível">
+            <input class="legendaNivel" type="text" placeholder="Descrição do nível">
         </div>`;
     }
     sectionCriandoNiveis.innerHTML += `<button onclick="verificarNiveis()">Finalizar Quizz</button>`;
-}
-
-function mostrarDadosNivel(nivelSelecionado) {
-    const nivelAberto = document.querySelector('.niveisCriandoQuizz .editandoNivel');
-    nivelAberto.classList.remove('editandoNivel');
-    nivelSelecionado.classList.add('editandoNivel');
 }
 
 function verificarNiveis() {
@@ -220,6 +217,13 @@ function verificarNiveis() {
     }
 }
 
+function mostrarDadosNivel(nivelSelecionado) {
+    const nivelAberto = document.querySelector('.niveisCriandoQuizz .editandoNivel');
+    nivelAberto.classList.remove('editandoNivel');
+    nivelSelecionado.classList.add('editandoNivel');
+    nivelSelecionado.querySelector("div").scrollIntoView();
+}
+
 function FinalizarQuizzCriado() {
     const quizzFeito = { title , image , questions , levels }
 
@@ -244,12 +248,17 @@ function telaFinalizaçãoQuizz(promessa) {
     imagem.style = `background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
      url(${image})`
 
-    tituloQuizz.innerHTML = `${criandoQuizz.title}`
+    tituloQuizz.innerHTML = `${title}`
 
+    quizzesUsuario.ids.push(promessa.data.id)
+    quizzesUsuario.keys.push(promessa.data.key)
+    
     title = "";
     image = "";
     questions = [];
     levels = [];
+
+    popularPaginaInicial();
 }
 
 function mudarTela(telaQueSome , telaQueAparece)

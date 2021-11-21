@@ -3,7 +3,7 @@
 //geral: https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes
 
 let quizzSelecionado; 
-let idQuizz = 2;
+//let idQuizz = 2;
 
 function answer(response){
     quizzSelecionado = response.data
@@ -12,7 +12,7 @@ function answer(response){
     alteraPergunta();
     // alteraResultado();
     alteraRodape();
-    // mudarTela(sectionTelaInicial , sectionTelaExibicaoQuizz)
+    mudarTela(sectionTelaInicial , sectionTelaExibicaoQuizz)
 }
 
 function alterarBanner(){
@@ -61,7 +61,7 @@ function alteraPergunta(){
         // }
        pergunta.answers.forEach((answer, index) => { 
             exibeOpcoes += `
-                <div class="text-resposta_${index}" onclick="alternativaSelecionada(${index}, ${answer.isCorrectAnswer})">
+                <div class="text-resposta_${index}" onclick="alternativaSelecionada(this , ${answer.isCorrectAnswer})">
                     <img class="img-pergunta" src="${answer.image}" alt="">
                     <p class="nome-resposta_${index}">${answer.text}</p>
                 </div>`
@@ -120,12 +120,12 @@ function alteraRodape(){
     buttonRodape.innerHTML += `
         <footer class="botoes-rodape">
             <button class="reiniciar-quizz">Reiniciar Quizz</button>
-            <button class="return-home">Voltar pra home</button>
+            <button class="return-home" onclick="mudarTela(sectionTelaExibicaoQuizz , sectionTelaInicial)">Voltar pra home</button>
         </footer>
         `
 }
 
-function carregaQuizz(){
+function carregaQuizz(idQuizz){
 // function carregaQuizz(idQuizz){
     // const url = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizz}`)
 
@@ -135,26 +135,25 @@ function carregaQuizz(){
     url.catch(error => { 
         return error
     });
-
 }
-carregaQuizz()
 
 function alternativaSelecionada(escolha, resposta){
-    console.log({escolha, resposta});
-    console.log(escolha.parentNode);
-        if(resposta){
-            document.querySelector(`.nome-resposta_${escolha}`).classList.add("resposta-correta") 
-        } else if (!resposta){
-            document.querySelector(`.nome-resposta_${escolha}`).classList.add("resposta-errada")
-        }
 
-    const arrayPerguntas = quizzSelecionado.questions;
-    for (let i = 0; i <= arrayPerguntas.length; i++) {
-        if(escolha !== i){
-            const elementoAlternativa = document.querySelector(`.text-resposta_${i}`);
-            elementoAlternativa.classList.add('alternativa-selecionada');
-        
-            console.log(elementoAlternativa)
+    const alternativas = escolha.parentNode.childNodes
+
+    if(resposta){
+        escolha.classList.add("resposta-correta") 
+    } 
+    else {
+        escolha.classList.add("resposta-errada")
+    } 
+
+    for (let i = 1; i <= alternativas.length; i+= 2) {
+        if (alternativas[i].classList.contains("resposta-correta") || alternativas[i].classList.contains("resposta-errada")){
+            continue;
+        }
+        else {
+            alternativas[i].classList.add('alternativa-selecionada');
         }
     }
 }
