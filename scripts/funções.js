@@ -1,4 +1,7 @@
 const sectionTelaInicial = document.querySelector('.tela-inicial');
+const semQuizzes = document.querySelector(".sem-quizzes")
+const quizzesUsuario = document.querySelector(".quizzes-usuario")
+const sectionTelaExibicaoQuizz = document.querySelector(".tela-exibicao-quizz")
 const sectionInfoQuizz = document.querySelector('.infoCriandoQuizz');
 const sectionCriarPerguntas = document.querySelector('.crieSuasPerguntas');
 const sectionCriandoNiveis = document.querySelector('.niveisCriandoQuizz');
@@ -20,6 +23,8 @@ let levels = [];
 
 let numeroPerguntas;
 let numeroNiveis;
+
+const quizzesUsuario = { ids: [], keys: [] }
 
 function verificarDadosCriandoQuizz() {
     title = document.querySelector('.titulo').value;
@@ -63,11 +68,11 @@ function CriandoPerguntas() {
           <div class="subTituloSecao">Pergunta ${i + 1}</div>
           <input class="textoPergunta" type="text" placeholder="Texto da pergunta">
           <input class="corFundo" type="text" placeholder="Cor de fundo da pergunta">
-        
+          
           <div class="subTituloSecao">Resposta correta</div>
           <input class="respostaCorreta" type="text" placeholder="Resposta correta">
           <input class="URLrespostaCorreta" type="text" placeholder="URL da imagem">
-        
+          
           <div class="subTituloSecao">Respostas incorretas</div>
           <input class="respostaIncorreta1" type="text" placeholder="Resposta incorreta 1">
           <input class="URLrespostaIncorreta1" type="text" placeholder="URL da imagem 1">
@@ -78,12 +83,6 @@ function CriandoPerguntas() {
         </div> `
     }
     sectionCriarPerguntas.innerHTML += `<button onclick="verificarPerguntas()">Prosseguir para criar níveis</button>`
-}
-
-function mostrarDadosPergunta(perguntaSelecionada) {
-    const perguntaAberta = document.querySelector('.editandoPergunta');
-    perguntaAberta.classList.remove('editandoPergunta');
-    perguntaSelecionada.classList.add('editandoPergunta');
 }
 
 function verificarPerguntas() {
@@ -127,13 +126,27 @@ function verificarPerguntas() {
 
             questions.push({ title: textoPerguntaCriandoQuizz[i].value, color: corFundoCriandoQuizz[i].value, answers: [] });
             questions[i].answers.push({ text: respostaCorretaCriandoQuizz[i].value, image: URLrespostaCorreta[i].value, isCorrectAnswer: true })
-            questions[i].answers.push({ text: respostaErrada1CriandoQuizz[i].value, image: URLrespostaIncorreta1[i].value, isCorrectAnswer: false });
-            questions[i].answers.push({ text: respostaErrada2CriandoQuizz[i].value, image: URLrespostaIncorreta2[i].value, isCorrectAnswer: false });
-            questions[i].answers.push({ text: respostaErrada3CriandoQuizz[i].value, image: URLrespostaIncorreta3[i].value, isCorrectAnswer: false });
+
+            if (respostaErrada1CriandoQuizz != "") {
+                questions[i].answers.push({ text: respostaErrada1CriandoQuizz[i].value, image: URLrespostaIncorreta1[i].value, isCorrectAnswer: false });
+            }
+            if (respostaErrada2CriandoQuizz != "") {
+                questions[i].answers.push({ text: respostaErrada2CriandoQuizz[i].value, image: URLrespostaIncorreta2[i].value, isCorrectAnswer: false });
+            }
+            if (respostaErrada3CriandoQuizz != "") {
+                questions[i].answers.push({ text: respostaErrada3CriandoQuizz[i].value, image: URLrespostaIncorreta3[i].value, isCorrectAnswer: false });
+            }
         }
     }
 
     criandoNiveis();
+}
+
+function mostrarDadosPergunta(perguntaSelecionada) {
+    const perguntaAberta = document.querySelector('.editandoPergunta');
+    perguntaAberta.classList.remove('editandoPergunta');
+    perguntaSelecionada.classList.add('editandoPergunta');
+    perguntaSelecionada.querySelector("div:first-child").scrollIntoView();
 }
 
 function criandoNiveis() {
@@ -152,20 +165,14 @@ function criandoNiveis() {
         }
         sectionCriandoNiveis.innerHTML += `
         <div class="nivel ${classe}" onclick="mostrarDadosNivel(this)">
-        <div class="subTituloSecao">Nível ${i + 1}</div>
-        <input class="tituloNilvelCriandoQuizz" type="text" placeholder="Título do nível">
-        <input class="acertosCriandoQuizz" type="text" placeholder="% de acerto mínima">
-        <input class="URLnivel" type="text" placeholder="URL da imagem do nível">
-        <input class="legendaNivel" type="text" placeholder="Descrição do nível">
+            <div class="subTituloSecao">Nível ${i + 1}</div>
+            <input class="tituloNilvelCriandoQuizz" type="text" placeholder="Título do nível">
+            <input class="acertosCriandoQuizz" type="text" placeholder="% de acerto mínima">
+            <input class="URLnivel" type="text" placeholder="URL da imagem do nível">
+            <input class="legendaNivel" type="text" placeholder="Descrição do nível">
         </div>`;
     }
     sectionCriandoNiveis.innerHTML += `<button onclick="verificarNiveis()">Finalizar Quizz</button>`;
-}
-
-function mostrarDadosNivel(nivelSelecionado) {
-    const nivelAberto = document.querySelector('.niveisCriandoQuizz .editandoNivel');
-    nivelAberto.classList.remove('editandoNivel');
-    nivelSelecionado.classList.add('editandoNivel');
 }
 
 function verificarNiveis() {
@@ -211,6 +218,13 @@ function verificarNiveis() {
     }
 }
 
+function mostrarDadosNivel(nivelSelecionado) {
+    const nivelAberto = document.querySelector('.niveisCriandoQuizz .editandoNivel');
+    nivelAberto.classList.remove('editandoNivel');
+    nivelSelecionado.classList.add('editandoNivel');
+    nivelSelecionado.querySelector("div").scrollIntoView();
+}
+
 function FinalizarQuizzCriado() {
     const quizzFeito = { title, image, questions, levels }
 
@@ -220,9 +234,7 @@ function FinalizarQuizzCriado() {
     promessa.catch(() => {
         chamarErro("Algo deu errado!")
 
-        //coloquei esse comentario aqui pra não sair da tela e resetar a pagina quando der ruim no teste
-        //tirar comentario quando o codigo for pro ar
-        //mudarTela(sectionCriandoNiveis , sectionTelaInicial)
+        mudarTela(sectionCriandoNiveis, sectionTelaInicial)
     });
 }
 
@@ -237,11 +249,17 @@ function telaFinalizaçãoQuizz(promessa) {
     imagem.style = `background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
      url(${image})`
 
+    tituloQuizz.innerHTML = `${title}`
+
+    quizzesUsuarioObjeto.ids.push(promessa.data.id)
+    quizzesUsuarioObjeto.keys.push(promessa.data.key)
 
     title = "";
     image = "";
     questions = [];
     levels = [];
+
+    popularPaginaInicial();
 }
 
 function mudarTela(telaQueSome, telaQueAparece) {
