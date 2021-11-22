@@ -252,8 +252,8 @@ function telaFinalizaçãoQuizz(promessa) {
 
     tituloQuizz.innerHTML = `${title}`
 
-    quizzesUsuarioObjeto.ids.push(promessa.data.id)
-    quizzesUsuarioObjeto.keys.push(promessa.data.key)
+    quizzesUsuario.ids.push(promessa.data.id)
+    quizzesUsuario.keys.push(promessa.data.key)
     
     title = "";
     image = "";

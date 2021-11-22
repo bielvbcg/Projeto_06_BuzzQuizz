@@ -1,7 +1,5 @@
 let arraySeusQuizzes = [];
 let arrayTodosOsQuizzes = [];
-let indiceQuizzes = 0;
-let quizzPulblicoBool = true;
 
 function popularPaginaInicial()
 {
@@ -11,44 +9,32 @@ function popularPaginaInicial()
   {
     const todosOsQuizzes = document.querySelector(".todos-os-quizzes")
     const seusQuizzes = document.querySelector(".seus-quizzes")
-    
+        
     arraySeusQuizzes = [];
     arrayTodosOsQuizzes = [];
-    indiceQuizzes = 0;
 
-    for (let i = 0 ; i < listaQuizzes.data.length ; i++)
-    {
-      quizzPulblicoBool = true;
-
-      while (indiceQuizzes < quizzesUsuario.ids.length){
-        if (quizzesUsuario.ids[indiceQuizzes] == listaQuizzes.data[i].id)
-        {
-          arraySeusQuizzes.push(
-            `
-              <div class="quizz" 
-                style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${new URL(listaQuizzes.data[i].image)})"
-                onclick="carregaQuizz(${listaQuizzes.data[i].id})">
-                <span>${listaQuizzes.data[i].title}</span>
-              </div>
-            `);
-          indiceQuizzes = 0;
-          quizzPulblicoBool = false;
-          break;
-        }
-
-        indiceQuizzes++;
+    for (let i = 0 ; i < listaQuizzes.data.length ; i++){
+      
+      if (verficaQuizz(listaQuizzes.data[i].id)){
+        arraySeusQuizzes.push(
+        `
+          <div class="quizz" 
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${new URL(listaQuizzes.data[i].image)})"
+            onclick="carregaQuizz(${listaQuizzes.data[i].id})">
+            <span>${listaQuizzes.data[i].title}</span>
+          </div>
+        `);
       }
-
-      if (!quizzPulblicoBool)
-      {
+      else {
         arrayTodosOsQuizzes.push(
-          `
-            <div class="quizz" 
-              style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${new URL(listaQuizzes.data[i].image)})"
-              onclick="carregaQuizz(${listaQuizzes.data[i].id})">
-              <span>${listaQuizzes.data[i].title}</span>
-            </div>
-      `)}
+        `
+          <div class="quizz" 
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${new URL(listaQuizzes.data[i].image)})"
+            onclick="carregaQuizz(${listaQuizzes.data[i].id})">
+            <span>${listaQuizzes.data[i].title}</span>
+          </div>
+        `);
+      }
     }
 
     for (let i = 0 ; i < arrayTodosOsQuizzes.length ; i++){
@@ -72,20 +58,12 @@ function popularPaginaInicial()
   listaQuizzes.catch(() => {alert("deu ruim patrão")})
 }
 
-//`
-//<div class="quizz" 
-//  style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${new URL(listaQuizzes.data[id].image)})"
-//  onclick="carregaQuizz(${listaQuizzes.data[id].id})">
-//  <span>${listaQuizzes.data[id].title}</span>
-//</div>
-//`  
-
-function quizzPulblico(quizz)
+function verficaQuizz(quizz)
 {
   for(let i = 0 ; i < quizzesUsuario.ids.length ; i++){
-    if (quizzesUsuario.ids[i] === quizz) {return false}
+    if (quizzesUsuario.ids[i] == quizz) {return true}
   }
-  return true;
+  return false;
 }
 
-//popularPaginaInicial();
+popularPaginaInicial();
