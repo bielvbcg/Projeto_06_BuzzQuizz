@@ -1,6 +1,6 @@
 const sectionTelaInicial = document.querySelector('.tela-inicial');
 const semQuizzes = document.querySelector(".sem-quizzes")
-const quizzesUsuario = document.querySelector(".quizzes-usuario")
+const sectionQuizzesUsuario = document.querySelector(".quizzes-usuario")
 const sectionTelaExibicaoQuizz = document.querySelector(".tela-exibicao-quizz")
 const sectionInfoQuizz = document.querySelector('.infoCriandoQuizz');
 const sectionCriarPerguntas = document.querySelector('.crieSuasPerguntas');
