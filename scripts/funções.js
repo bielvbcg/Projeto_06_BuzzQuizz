@@ -24,7 +24,7 @@ let levels = [];
 let numeroPerguntas;
 let numeroNiveis;
 
-const quizzesUsuario = { ids: [] , keys: [] }
+const quizzesUsuario = { ids: [], keys: [] }
 
 function verificarDadosCriandoQuizz() {
     title = document.querySelector('.titulo').value;
@@ -51,10 +51,10 @@ function verificarDadosCriandoQuizz() {
 
 function CriandoPerguntas() {
 
-    mudarTela(sectionInfoQuizz , sectionCriarPerguntas)
+    mudarTela(sectionInfoQuizz, sectionCriarPerguntas)
 
     let classe = "";
-    
+
     sectionCriarPerguntas.innerHTML = `<div class="tituloSecao">Crie suas perguntas</div>`;
 
     for (let i = 0; i < numeroPerguntas; i++) {
@@ -90,35 +90,34 @@ function verificarPerguntas() {
     const corFundoCriandoQuizz = document.querySelectorAll('.corFundo');
     const respostaCorretaCriandoQuizz = document.querySelectorAll('.respostaCorreta');
     const URLrespostaCorreta = document.querySelectorAll('.URLrespostaCorreta');
-    
+
     const respostaErrada1CriandoQuizz = document.querySelectorAll('.respostaIncorreta1');
     const URLrespostaIncorreta1 = document.querySelectorAll('.URLrespostaIncorreta1');
     const respostaErrada2CriandoQuizz = document.querySelectorAll('.respostaIncorreta2');
     const URLrespostaIncorreta2 = document.querySelectorAll('.URLrespostaIncorreta2');
     const respostaErrada3CriandoQuizz = document.querySelectorAll('.respostaIncorreta3');
     const URLrespostaIncorreta3 = document.querySelectorAll('.URLrespostaIncorreta3');
-    
-    let numeroRespostas;
+
     questions = [];
-    
+
     for (let i = 0; i < numeroPerguntas; i++) {
-        
+
         if (textoPerguntaCriandoQuizz[i].value.length < 20) {
             chamarErro("A pergunta deve ter no mínimo 20 caracteres!")
             return
-            
+
         } else if (corFundoCriandoQuizz[i].value.length != 7 || !corFundoCriandoQuizz[i].value.includes('#')) {
             chamarErro("A cor deve ser na forma  hexadecimal (começar em '#', seguida de 6 caracteres hexadecimais, ou seja, números ou letras de A a F)")
             return
-            
+
         } else if ((!URLrespostaIncorreta1[i].value.includes('https') && !URLrespostaIncorreta2[i].value.includes('https') && !URLrespostaIncorreta3[i].value.includes('https')) || !URLrespostaCorreta[i].value.includes('https')) {
             chamarErro("informe uma URL válida, ou alguma URL esta inserida incorretamente!")
             return
-            
+
         } else if (respostaCorretaCriandoQuizz[i].value === "") {
             chamarErro("informe a resposta correta!")
             return
-            
+
         } else if (respostaErrada1CriandoQuizz[i].value === "" && respostaErrada2CriandoQuizz[i].value === "" && respostaErrada3CriandoQuizz[i].value === "") {
             chamarErro("informe ao menos 1 resposta errada!")
             return
@@ -132,13 +131,13 @@ function verificarPerguntas() {
                 questions[i].answers.push({ text: respostaErrada1CriandoQuizz[i].value, image: URLrespostaIncorreta1[i].value, isCorrectAnswer: false });
             }
             if (respostaErrada2CriandoQuizz != "") {
-                questions[i].answers.push({ text: respostaErrada2CriandoQuizz[i].value, image: URLrespostaIncorreta2[i].value, isCorrectAnswer: false });    
+                questions[i].answers.push({ text: respostaErrada2CriandoQuizz[i].value, image: URLrespostaIncorreta2[i].value, isCorrectAnswer: false });
             }
             if (respostaErrada3CriandoQuizz != "") {
                 questions[i].answers.push({ text: respostaErrada3CriandoQuizz[i].value, image: URLrespostaIncorreta3[i].value, isCorrectAnswer: false });
             }
         }
-    }   
+    }
 
     criandoNiveis();
 }
@@ -151,8 +150,8 @@ function mostrarDadosPergunta(perguntaSelecionada) {
 }
 
 function criandoNiveis() {
-    
-    mudarTela(sectionCriarPerguntas , sectionCriandoNiveis)
+
+    mudarTela(sectionCriarPerguntas, sectionCriandoNiveis)
 
     let classe = "";
 
@@ -227,7 +226,7 @@ function mostrarDadosNivel(nivelSelecionado) {
 }
 
 function FinalizarQuizzCriado() {
-    const quizzFeito = { title , image , questions , levels }
+    const quizzFeito = { title, image, questions, levels }
 
     const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzFeito);
     promessa.then(telaFinalizaçãoQuizz);
@@ -235,14 +234,14 @@ function FinalizarQuizzCriado() {
     promessa.catch(() => {
         chamarErro("Algo deu errado!")
 
-        mudarTela(sectionCriandoNiveis , sectionTelaInicial)
+        mudarTela(sectionCriandoNiveis, sectionTelaInicial)
     });
 }
 
 function telaFinalizaçãoQuizz(promessa) {
     console.log(promessa)
 
-    mudarTela(sectionCriandoNiveis , sectionQuizzPronto)
+    mudarTela(sectionCriandoNiveis, sectionQuizzPronto)
 
     const imagem = document.querySelector('.QuizzPronto .imagem');
     const tituloQuizz = document.querySelector('.QuizzPronto .imagem span');
@@ -263,14 +262,12 @@ function telaFinalizaçãoQuizz(promessa) {
     popularPaginaInicial();
 }
 
-function mudarTela(telaQueSome , telaQueAparece)
-{
+function mudarTela(telaQueSome, telaQueAparece) {
     telaQueSome.classList.toggle("sumir");
     telaQueAparece.classList.toggle("sumir");
 }
 
-function chamarErro(erro)
-{
+function chamarErro(erro) {
     sectionMensagemErro.classList.remove('sumir');
     textoErro.innerHTML = erro;
 }
