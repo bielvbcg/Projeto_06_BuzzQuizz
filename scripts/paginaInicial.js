@@ -57,7 +57,7 @@ function popularPaginaInicial() {
 
     if (arraySeusQuizzes.length !== 0) {
       semQuizzes.classList.add("sumir")
-      quizzesUsuario.classList.remove("sumir")
+      sectionQuizzesUsuario.classList.remove("sumir")
     }
     else {
       sectionQuizzesUsuario.classList.add("sumir")
@@ -68,13 +68,13 @@ function popularPaginaInicial() {
   listaQuizzes.catch(() => { alert("deu ruim patrão") })
 }
 
-// `
-// <div class="quizz" 
-//   style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${new URL(listaQuizzes.data[id].image)})"
-//   onclick="carregaQuizz(${listaQuizzes.data[id].id})">
-//   <span>${listaQuizzes.data[id].title}</span>
-// </div>
-// `  
+//`
+//<div class="quizz" 
+//  style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${new URL(listaQuizzes.data[id].image)})"
+//  onclick="carregaQuizz(${listaQuizzes.data[id].id})">
+//  <span>${listaQuizzes.data[id].title}</span>
+//</div>
+//`  
 
 function quizzPulblico(quizz) {
   for (let i = 0; i < quizzesUsuario.ids.length; i++) {
@@ -83,4 +83,4 @@ function quizzPulblico(quizz) {
   return true;
 }
 
-popularPaginaInicial();
+//popularPaginaInicial();
