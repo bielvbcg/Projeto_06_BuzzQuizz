@@ -1,5 +1,6 @@
 let arraySeusQuizzes = [];
 let arrayTodosOsQuizzes = [];
+let verificaQuizzesUsuario;
 
 function popularPaginaInicial() {
   const listaQuizzes = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
@@ -62,8 +63,10 @@ function popularPaginaInicial() {
 
 function verficaQuizz(quizz)
 {
-  for(let i = 0 ; i < quizzesUsuario.ids.length ; i++){
-    if (quizzesUsuario.ids[i] == quizz) {return true}
+  verificaQuizzesUsuario = JSON.parse(localStorage.getItem("quizzesUsuario"))
+
+  for(let i = 0 ; i < verificaQuizzesUsuario.ids.length ; i++){
+    if (verificaQuizzesUsuario.ids[i] == quizz) {return true}
   }
   return false;
 }

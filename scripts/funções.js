@@ -24,7 +24,7 @@ let levels = [];
 let numeroPerguntas;
 let numeroNiveis;
 
-const quizzesUsuario = { ids: [], keys: [] }
+if (localStorage.length === 0) {localStorage.setItem("quizzesUsuario" , JSON.stringify({ids: [] , keys: []}))}
 
 function verificarDadosCriandoQuizz() {
     title = document.querySelector('.titulo').value;
@@ -227,40 +227,43 @@ function mostrarDadosNivel(nivelSelecionado) {
 
 function FinalizarQuizzCriado() {
     const quizzFeito = { title, image, questions, levels }
-
     const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzFeito);
-    promessa.then(telaFinalizaçãoQuizz);
+
+    
+    promessa.then(promessa => {
+        
+        mudarTela(sectionCriandoNiveis, sectionQuizzPronto)
+        
+        const imagem = document.querySelector('.QuizzPronto .imagem');
+        const tituloQuizz = document.querySelector('.QuizzPronto .imagem span');
+        
+        imagem.style = `background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
+        url(${image})`
+        
+        tituloQuizz.innerHTML = `${title}`
+        
+        quizzesUsuario = JSON.parse(localStorage.getItem("quizzesUsuario"));
+
+        quizzesUsuario.ids.push(promessa.data.id)
+        quizzesUsuario.keys.push(promessa.data.key)
+
+        quizzesUsuario = JSON.stringify(quizzesUsuario);
+        localStorage.setItem("quizzesUsuario" , quizzesUsuario);
+        
+        title = "";
+        image = "";
+        questions = [];
+        levels = [];
+    
+        popularPaginaInicial();
+    });
 
     promessa.catch(() => {
         chamarErro("Algo deu errado!")
 
         mudarTela(sectionCriandoNiveis, sectionTelaInicial)
     });
-}
-
-function telaFinalizaçãoQuizz(promessa) {
-    console.log(promessa)
-
-    mudarTela(sectionCriandoNiveis, sectionQuizzPronto)
-
-    const imagem = document.querySelector('.QuizzPronto .imagem');
-    const tituloQuizz = document.querySelector('.QuizzPronto .imagem span');
-
-    imagem.style = `background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-     url(${image})`
-
-    tituloQuizz.innerHTML = `${title}`
-
-    quizzesUsuario.ids.push(promessa.data.id)
-    quizzesUsuario.keys.push(promessa.data.key)
-    
-    title = "";
-    image = "";
-    questions = [];
-    levels = [];
-
-    popularPaginaInicial();
-}
+} 
 
 function mudarTela(telaQueSome, telaQueAparece) {
     telaQueSome.classList.toggle("sumir");
