@@ -3,74 +3,88 @@
 //geral: https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes
 
 let quizzSelecionado; 
-//let idQuizz = 2;
 
-function answer(response){
-    quizzSelecionado = response.data
-    console.log(quizzSelecionado);
-    alterarBanner();
-    alteraPergunta();
-    // alteraResultado();
-    alteraRodape();
-    mudarTela(sectionTelaInicial , sectionTelaExibicaoQuizz)
-}
+function carregaQuizz(idQuizz){
 
-function alterarBanner(){
-    const titleQuizz = document.querySelector('.banner-text');
-    titleQuizz.innerHTML = quizzSelecionado.title;
-
-    const imgQuizz = document.querySelector('.banner-topo');
-    imgQuizz.style.backgroundImage = `url(${quizzSelecionado.image})`;
-}
-
-function alteraPergunta(){
-    const arrayPerguntas = quizzSelecionado.questions;
-    const elementoPergunta = document.querySelector('.tela-exibicao-quizz');
-
-    let aux;
-    let exibeOpcoes;
-
-    console.log(arrayPerguntas)
-
-    for(let i = 0; i < arrayPerguntas.length; i++){
-        let pergunta = arrayPerguntas[i]
-        // console.log(pergunta)
-    // for (let pergunta of arrayPerguntas) {
-
-        aux = `
-        <div class="visualizacao-perguntas">
-            <div class="perguntaj" style="background-color: ${pergunta.color}">
-                <h3 class="pergunta-text">
-                    ${pergunta.title}
-                </h3>
-            </div>
-        `
+    const url = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizz}`);
+    
+    url.then(response => {
         
-        exibeOpcoes = `<div class="opcoes">`
+        quizzSelecionado = response.data
+        
+        const arrayPerguntas = quizzSelecionado.questions;
+        const sectionTelaExibicaoQuizz = document.querySelector('.tela-exibicao-quizz');
+        
+        let aux;
+        let exibeOpcoes;
+            
+        sectionTelaExibicaoQuizz.innerHTML =
+        `<div class='banner-topo' style='background-image: url(${quizzSelecionado.image})'>
+            <h1 class='banner-text'>${quizzSelecionado.title}</h1>
+        </div>`;
 
-        // for (let i = 0; i < pergunta.answers.length; i++) {
-        //     let alternativa = pergunta.answers[i];
-        //     console.log(alternativa)
+        for(let i = 0; i < arrayPerguntas.length; i++){
+    
+            const pergunta = arrayPerguntas[i]
+            let respostas = []
+    
+            for (let k = 0 ; k < pergunta.answers.length ; k++) {
+                respostas.push(pergunta.answers[k])
+            };
+    
+            respostas.sort(() => {return Math.random() - 0.5})
+            
+            aux = `
+            <div class="visualizacao-perguntas">
+                <div class="perguntaj" style="background-color: ${pergunta.color}">
+                    <h3 class="pergunta-text">
+                        ${pergunta.title}
+                    </h3>
+                </div>
+            `
+            
+            exibeOpcoes = `<div class="opcoes">`
+    
+            for (let j = 0 ; j < respostas.length ; j++){ 
+                exibeOpcoes += `
+                    <div onclick="alternativaSelecionada(this , ${respostas[j].isCorrectAnswer})">
+                        <img class="img-pergunta" src="${respostas[j].image}" alt="">
+                        <p class="nome-resposta">${respostas[j].text}</p>
+                    </div>`
+            }
+    
+            exibeOpcoes += `</div>`
+    
+            sectionTelaExibicaoQuizz.innerHTML += aux + exibeOpcoes + `</div>`
+        }
+    
+        //a div "visualizacao-resultados" logo abaixo esta aqui apenas para testar o layout
+        //deve ser somente incluida nessa parte do codigo como <div class="visualizacao-resultados sumir"></div>
+        //e seu conteudo setado com .innerHTML na função que verifica o resultado do quizz utilizando
+        //string literals para deixar com as imagens e textos certos
+        sectionTelaExibicaoQuizz.innerHTML += `
+            <div class="visualizacao-resultados sumir"> 
+                <div class="resultado">
+                    <span>88% de acerto: Você é praticamente um aluno de Hogwarts!</span>
+                </div>
+                <div class="descricao-nivel">
+                  <div class="imagem-nivel"></div>
+                  <p>Gato</p>
+                </div>
+            </div>
+            <footer class="botoes-rodape">
+                <button class="reiniciar-quizz" onclick="carregaQuizz(${quizzSelecionado.id})">Reiniciar Quizz</button>
+                <button class="return-home" onclick="mudarTela(sectionTelaExibicaoQuizz , sectionTelaInicial)">Voltar pra home</button>
+            </footer>
+            `
 
-            // exibeOpcoes += `
-            //     <div class="text-resposta" key="${alternativa.json()}" onclick="alternativaSelecionada(this)">
-            //         <img class="img-pergunta" src="${alternativa.image}" alt="">
-            //         <p>${alternativa.text}</p>
-            //     </div>
-        //     `
-        // }
-       pergunta.answers.forEach((answer, index) => { 
-            exibeOpcoes += `
-                <div class="text-resposta_${index}" onclick="alternativaSelecionada(this , ${answer.isCorrectAnswer})">
-                    <img class="img-pergunta" src="${answer.image}" alt="">
-                    <p class="nome-resposta_${index}">${answer.text}</p>
-                </div>`
-        })
+        mudarTela(sectionTelaInicial , sectionTelaExibicaoQuizz)
+        sectionTelaExibicaoQuizz.scrollIntoView()
+    });
 
-        exibeOpcoes += `</div>`
-
-        elementoPergunta.innerHTML += aux + exibeOpcoes + `</div>`
-    }
+    url.catch(error => { 
+        return error
+    });
 }
 
 // function alteraResultado(){
@@ -114,28 +128,6 @@ function alteraPergunta(){
 //     }
 // }
 
-function alteraRodape(){
-    const buttonRodape = document.querySelector('.tela-exibicao-quizz');
-    
-    buttonRodape.innerHTML += `
-        <footer class="botoes-rodape">
-            <button class="reiniciar-quizz">Reiniciar Quizz</button>
-            <button class="return-home" onclick="mudarTela(sectionTelaExibicaoQuizz , sectionTelaInicial)">Voltar pra home</button>
-        </footer>
-        `
-}
-
-function carregaQuizz(idQuizz){
-// function carregaQuizz(idQuizz){
-    // const url = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizz}`)
-
-    const url = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizz}`);
-    
-    url.then(answer);
-    url.catch(error => { 
-        return error
-    });
-}
 
 function alternativaSelecionada(escolha, resposta){
 
@@ -146,14 +138,18 @@ function alternativaSelecionada(escolha, resposta){
     } 
     else {
         escolha.classList.add("resposta-errada")
-    } 
+    }
 
     for (let i = 1; i <= alternativas.length; i+= 2) {
+
         if (alternativas[i].classList.contains("resposta-correta") || alternativas[i].classList.contains("resposta-errada")){
             continue;
         }
         else {
             alternativas[i].classList.add('alternativa-selecionada');
+
+            if (alternativas[i].innerHTML.contains("true")) {alternativas[i].classList.add("resposta-correta")}
+            else {alternativas[i].classList.add("resposta-errada")}
         }
     }
 }

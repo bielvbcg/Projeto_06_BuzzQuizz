@@ -236,11 +236,11 @@ function FinalizarQuizzCriado() {
         
         const imagem = document.querySelector('.QuizzPronto .imagem');
         const tituloQuizz = document.querySelector('.QuizzPronto .imagem span');
+        const botao = document.querySelector(".QuizzPronto button")
         
-        imagem.style = `background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-        url(${image})`
-        
+        imagem.style = `background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${image})`
         tituloQuizz.innerHTML = `${title}`
+        botao.setAttribute(`onclick` , `carregarQuizz(${promessa.data.id})`)
         
         quizzesUsuario = JSON.parse(localStorage.getItem("quizzesUsuario"));
 
@@ -266,8 +266,8 @@ function FinalizarQuizzCriado() {
 } 
 
 function mudarTela(telaQueSome, telaQueAparece) {
-    telaQueSome.classList.toggle("sumir");
-    telaQueAparece.classList.toggle("sumir");
+    telaQueSome.classList.add("sumir");
+    telaQueAparece.classList.remove("sumir");
 }
 
 function chamarErro(erro) {
