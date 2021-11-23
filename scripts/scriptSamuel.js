@@ -19,7 +19,7 @@ function carregaQuizz(idQuizz){
         let exibeOpcoes;
             
         sectionTelaExibicaoQuizz.innerHTML =
-        `<div class='banner-topo' style='background-image: url(${quizzSelecionado.image})'>
+        `<div class='banner-topo' style='background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${quizzSelecionado.image})'>
             <h1 class='banner-text'>${quizzSelecionado.title}</h1>
         </div>`;
 
