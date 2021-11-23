@@ -61,7 +61,7 @@ function carregaQuizz(idQuizz){
         //a div "visualizacao-resultados" logo abaixo esta aqui apenas para testar o layout
         //deve ser somente incluida nessa parte do codigo como <div class="visualizacao-resultados sumir"></div>
         //e seu conteudo setado com .innerHTML na função que verifica o resultado do quizz utilizando
-        //string literals para deixar com as imagens e textos certos
+        //string literals para deixar com as imagens e textos certos , depois tem q remover classe "sumir"
         sectionTelaExibicaoQuizz.innerHTML += `
             <div class="visualizacao-resultados sumir"> 
                 <div class="resultado">
@@ -146,10 +146,7 @@ function alternativaSelecionada(escolha, resposta){
             continue;
         }
         else {
-            alternativas[i].classList.add('alternativa-selecionada');
-
-            if (alternativas[i].innerHTML.contains("true")) {alternativas[i].classList.add("resposta-correta")}
-            else {alternativas[i].classList.add("resposta-errada")}
+            alternativas[i].classList.add("alternativa-selecionada");
         }
     }
 }
