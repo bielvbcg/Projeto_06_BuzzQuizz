@@ -28,12 +28,12 @@
   <section class="tela-inicial">
     <div class="sem-quizzes sumir">
       <span>Você não criou nenhum <br>quizz ainda :(</span>
-      <button onclick="mudarTela(sectionTelaInicial , sectionInfoQuizz)">Criar Quizz</button>
+      <button data-identifier="create-quizz" onclick="mudarTela(sectionTelaInicial , sectionInfoQuizz)">Criar Quizz</button>
     </div>
-    <div class="quizzes-usuario">
+    <div data-identifier="user-quizzes" class="quizzes-usuario">
       <div class="titulo-com-botao">
         <span class="titulo-quizzes">Seus Quizzes</span>
-        <ion-icon name="add-circle" onclick="mudarTela(sectionTelaInicial , sectionInfoQuizz)"></ion-icon>
+        <ion-icon data-identifier="create-quizz" name="add-circle" onclick="mudarTela(sectionTelaInicial , sectionInfoQuizz)"></ion-icon>
       </div>
       <div class="seus-quizzes "></div>
     </div>
@@ -41,7 +41,7 @@
       <div>
         <span class="titulo-quizzes">Todos os Quizzes</span>
       </div>
-      <div class="todos-os-quizzes"></div>
+      <div data-identifier="general-quizzes" class="todos-os-quizzes"></div>
     </div>
   </section> 
 

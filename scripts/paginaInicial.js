@@ -21,7 +21,7 @@ function popularPaginaInicial() {
       if (verficaQuizz(listaQuizzes.data[i].id)){
         arraySeusQuizzes.push(
         `
-          <div class="quizz" 
+          <div data-identifier="quizz-card" class="quizz" 
             style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${imagem})"
             onclick="carregaQuizz(${idQuizz})">
             <span>${tituloQuizz}</span>
@@ -31,7 +31,7 @@ function popularPaginaInicial() {
       else {
         arrayTodosOsQuizzes.push(
         `
-          <div class="quizz" 
+          <div data-identifier="quizz-card" class="quizz" 
             style="background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(${imagem})"
             onclick="carregaQuizz(${idQuizz})">
             <span>${tituloQuizz}</span>

@@ -64,7 +64,7 @@ function CriandoPerguntas() {
             classe = "";
         }
         sectionCriarPerguntas.innerHTML += `
-        <div class="pergunta ${classe}" onclick="mostrarDadosPergunta(this)">
+        <div data-identifier="question" data-identifier="expand" class="pergunta ${classe}" onclick="mostrarDadosPergunta(this)">
           <div class="subTituloSecao">Pergunta ${i + 1}</div>
           <input class="textoPergunta" type="text" placeholder="Texto da pergunta">
           <input class="corFundo" type="text" placeholder="Cor de fundo da pergunta">
@@ -164,7 +164,7 @@ function criandoNiveis() {
             classe = "";
         }
         sectionCriandoNiveis.innerHTML += `
-        <div class="nivel ${classe}" onclick="mostrarDadosNivel(this)">
+        <div data-identifier="level" class="nivel ${classe}" onclick="mostrarDadosNivel(this)">
             <div class="subTituloSecao">Nível ${i + 1}</div>
             <input class="tituloNilvelCriandoQuizz" type="text" placeholder="Título do nível">
             <input class="acertosCriandoQuizz" type="text" placeholder="% de acerto mínima">
